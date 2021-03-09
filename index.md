@@ -1,4 +1,4 @@
-<link href="markdown-css/markdown.css" rel="stylesheet"></link>
+<link rel="stylesheet" type="text/css" media="all" href="markdown.css" />
 <h1>A First Level Header</h1>
 
 <h2>A Second Level Header</h2>
