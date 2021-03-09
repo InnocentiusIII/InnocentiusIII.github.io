@@ -6,13 +6,13 @@ html {
 }
 
 body {
-  color: #00ff00;
+  color: #333333;
   font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1.5em;
   padding: 1em;
   margin: auto;
-  max-width: 42em;
+  max-width: 33em;
   background: #fefefe;
 }
 
