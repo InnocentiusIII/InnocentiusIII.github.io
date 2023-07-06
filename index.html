@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Simple HTML Website</title>
-  <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    
-    .bueno {
-      font-size: 10em;
-      font-weight: bold;
-      text-align: center;
-      color: #ff0000;
-      text-transform: uppercase;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-  </style>
+    <title>My Website</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 50px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="bueno">BUENO</div>
+    <div id="content"></div>
+    <script>
+        // replace this with the URL you got in step 1
+        var googleSheetUrl = "https://docs.google.com/spreadsheets/d/e/.../pub?output=csv"; 
+
+        fetch(googleSheetUrl)
+            .then(response => response.text())
+            .then(data => {
+                var rows = data.split("\n");
+                var cells = rows[1].split(",");  // assumes B2 is in the second row
+                var cellB2 = cells[1];  // assumes B2 is the second cell in the row
+                document.getElementById("content").innerText = cellB2;
+            });
+    </script>
 </body>
 </html>
