@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Website</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-size: 50px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div id="content"></div>
-    <script>
-        // replace this with the URL you got in step 1
-        var googleSheetUrl = "https://docs.google.com/spreadsheets/d/e/.../pub?output=csv"; 
+  <title>Google Sheets API Example</title>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
+    }
 
-        fetch(googleSheetUrl)
-            .then(response => response.text())
-            .then(data => {
-                var rows = data.split("\n");
-                var cells = rows[1].split(",");  // assumes B2 is in the second row
-                var cellB2 = cells[1];  // assumes B2 is the second cell in the row
-                document.getElementById("content").innerText = cellB2;
-            });
-    </script>
+    function initClient() {
+      gapi.client.init({
+        apiKey: 'AIzaSyC8DItT43aJpLhWeK_uFESL8XbyGCICnyU',
+        clientId: '239341426272-vgl1m1mqv3si50jsodcm1scmdmro03uf.apps.googleusercontent.com',
+        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+        scope: 'https://www.googleapis.com/auth/spreadsheets.readonly'
+      }).then(function() {
+        gapi.auth2.getAuthInstance().signIn().then(listData);
+      });
+    }
+
+    function listData() {
+      gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: '1J5CYt4u2ghlzW5F8eVdlqKhmF4pAdBzR8fFToFKFpto',
+        range: 'Sheet1!A1:B5' // Adjust the range according to your sheet structure
+      }).then(function(response) {
+        var values = response.result.values;
+        var content = document.getElementById('content');
+
+        for (var i = 0; i < values.length; i++) {
+          var row = document.createElement('div');
+          row.innerHTML = '<strong>' + values[i][0] + '</strong>: ' + values[i][1];
+          content.appendChild(row);
+        }
+      }, function(error) {
+        console.error('Error fetching data from Google Sheets:', error.result.error.message);
+      });
+    }
+  </script>
+</head>
+<body onload="handleClientLoad()">
+  <h1>Data from Google Sheets</h1>
+  <div id="content"></div>
 </body>
 </html>
