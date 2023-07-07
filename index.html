@@ -8,8 +8,12 @@
       src: url('/font.otf') format('opentype');
     }
 
+    html {
+      font-size: 28px;
+    }
+
     body {
-      background-color: rgba(0, 0, 0, 90);
+      background-color: rgba(0, 0, 0, 0);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,24 +22,8 @@
       overflow-x: hidden;
     }
 
-    h1 {
-      color: white;
-      font-family: 'Kapra Neue Medium', monospace;
-      font-size: 48px;
-      text-align: center;
-      margin-top: 50px;
-    }
-
-    h2 {
-      color: white;
-      font-family: 'Kapra Neue Medium', monospace;
-      font-size: 24px;
-      text-align: center;
-      margin-top: 30px;
-    }
-
     .csv-table {
-      margin: 20px auto;
+      margin: 1.25rem auto;
       padding: 0px;
       border-collapse: collapse;
       width: 86%;
@@ -44,10 +32,9 @@
       background-color: black; 
     }
 
-
     .csv-table th,
     .csv-table td {
-      padding-left: 4px;
+      padding-left: 0.25rem;
       border: 0.5px solid rgba(215, 200, 133, 0.152);
       border-width: 0.25px;
       color: rgb(212, 212, 212);
@@ -56,79 +43,58 @@
       vertical-align: -webkit-baseline-middle;
     }
 
-    .csv-table th:first-child,
-  
-
-    .csv-table td:nth-child(0) {
-      width: 55px;
-      height: 0px;
-    }
-    .csv-table td:nth-child(1) {
-      width: 20px;
-      height: 0px;
-    }
-
-    .csv-table td:nth-child(2) {
-      width: 50px;
-      height: 0px;
-    }
-
-    .csv-table td:nth-child(3) {
-      width: 400px;
-      height: 2px;
-      text-transform: uppercase;
-    }
-
     .day-number {
-      font-size: 44px;
+      font-size: 2.75rem;
       line-height: 100%;
       text-transform: uppercase;
     }
 
     .day-name {
-      font-size: 16px;
+      font-size: 1rem;
       text-transform: uppercase;
     }
 
     .hours {
-      font-size: 16px;
+      font-size: 1rem;
       text-transform: uppercase;
     }
 
     .month {
-      font-size: 12px;
+      font-size: 0.75rem;
       line-height: 200%;
       text-transform: uppercase;
     }
 
     .artist-name {
-      font-size: 40px;
+      font-size: 2.5rem;
       text-transform: uppercase;
     }
 
     .description {
-      font-size: 12px;
+      font-size: 0.75rem;
       text-transform: uppercase;
     }
 
     .cancelled {
-      font-size: 14px;
+      font-size: 0.875rem;
       color: rgb(255, 0, 0);!important
       text-transform: uppercase;
     }
 
     .type {
-      font-size: 16px;
+      font-size: 1rem;
       text-transform: uppercase;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="meta-frame">
-
-    <div id="csv-tables"></div>
-  </div>
-
+  <div id="csv-tables"></div>
   <script>
     // Function to create a cell and append it to a row
     function createCell(row, text, className, rowspan=1, colspan=1) {
