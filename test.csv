@@ -1,4 +1,5 @@
-day_number;day_name;month ;hour;artist_name;description;event_type
-21;Friday;aug;8-10 pm;DISHWASHER;LATENCE / YENTL / MAY / DO;live
-22;Saturday;july;10:00 PM;TARDES;BASIC / FEELINGS / AEL / SMOBE;live
-23;Sunday;july;6:00 PM;ROTEM SIVAN TRIO;ANGELO MOUSTAPHA - DRUMS, TOINE THYS - SAXOPHONES, JÉRÉMY DEBUYSSCHERE - BASS, JOEL RABELSOLO - GUITAR;dj-set
+day_number;day_name;month ;hour;artist_name;description;event_type;cancelled?
+20;Friday;aug;8-10 pm;DISHWASHER;LATENCE / YENTL / MAY / DO;live;
+21;Saturday;july;9:00 PM;TARDES;BASIC / FEELINGS / AEL / SMOBE;live;x
+22;Sunday;july;6:00 PM;ROTEM SIVAN TRIO;ANGELO MOUSTAPHA - DRUMS, TOINE THYS - SAXOPHONES, JÉRÉMY DEBUYSSCHERE - BASS, JOEL RABELSOLO - GUITAR;dj-set;
+ 
