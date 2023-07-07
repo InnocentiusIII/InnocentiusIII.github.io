@@ -76,9 +76,9 @@
     }
 
     .cancelled {
-      font-size: 0.875rem;
-      color: rgb(255, 0, 0);!important
+      font-size: 1rem;
       text-transform: uppercase;
+      background-color: rgb(159, 0, 0); /* Added code */
     }
 
     .type {
@@ -109,7 +109,8 @@
 
 
     // Function to fetch and display CSV data
-    function fetchCSV() {
+// Function to fetch and display CSV data
+function fetchCSV() {
   fetch('/test.csv')  // Update the filename if necessary
     .then(response => response.text())
     .then(data => {
@@ -126,8 +127,16 @@
         var artistName = cells[4];
         var description = cells[5];
         var eventType = cells[6];
-        var emptyCell1 = " "
-        var cancelled = "ON"
+        var cancelledStatus = cells[7]; // New variable for the "cancelled?" column
+        var emptyCell1 = " ";
+        var cancelled = ""; // Initialize the cancelled variable as empty
+        var cancelledClass = ""; // Initialize the cancelledClass variable as empty
+
+        // Check if any letter is present in the cancelledStatus column
+        if (cancelledStatus.match(/[a-zA-Z]/)) {
+          cancelled = "CANCELLED";
+          cancelledClass = "cancelled";
+        }
 
         // Create a new table and rows
         var table = document.createElement('table');
@@ -151,7 +160,7 @@
 
         // Create cells for row 2
         createCell(row2, dayName, 'day-name', 1, 2, '13%');
-        createCell(row2, emptyCell1, 'cancelled', 1, 1, '8%');
+        createCell(row2, cancelled, cancelledClass, 1, 1, '8%');
         createCell(row2, emptyCell1, 'hours', 1, 1, '10%');
 
         // Create cells for row 3
@@ -171,8 +180,9 @@
     });
 }
 
-    // Call the function to fetch and display CSV data
-    fetchCSV();
+// Call the function to fetch and display CSV data
+fetchCSV();
+
   </script>
 </body>
 </html>
