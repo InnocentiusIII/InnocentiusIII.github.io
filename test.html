@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSV Embed Example</title>
+  <style>
+    @font-face {
+      font-family: 'Kapra Neue Medium';
+      src: url('/font.otf') format('opentype');
+    }
+
+    body {
+      background-color: rgb(77, 77, 77);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .meta-frame {
+      background-color: black;
+      border: 1px solid red;
+      width: 500px;
+      height: 860px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      color: white;
+      font-family: 'Kapra Neue Medium', monospace;
+      font-size: 48px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    h2 {
+      color: white;
+      font-family: 'Kapra Neue Medium', monospace;
+      font-size: 24px;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .csv-table {
+      margin: 20px auto;
+      padding: 0px;  /* Padding added */
+      border-collapse: collapse;
+      width: 300px;
+      overflow: hidden;
+      border: 1px solid white; /* Add border */
+    }
+
+    .csv-table th,
+    .csv-table td {
+      padding-left: 4px;
+      border: 0.5px solid rgba(215, 200, 133, 0.152);
+      border-width: 0.25px;
+      color: rgb(212, 212, 212);
+      font-family: 'Kapra Neue Medium', monospace;
+      text-align: left;
+      vertical-align: -webkit-baseline-middle;
+    }
+
+    .csv-table th:first-child,
+  
+
+    .csv-table td:nth-child(0) {
+      width: 55px;
+      height: 0px;
+    }
+    .csv-table td:nth-child(1) {
+      width: 20px;
+      height: 0px;
+    }
+
+    .csv-table td:nth-child(2) {
+      width: 50px;
+      height: 0px;
+    }
+
+    .csv-table td:nth-child(3) {
+      width: 400px;
+      height: 2px;
+      text-transform: uppercase;
+    }
+
+    .day-number {
+      font-size: 44px;
+      line-height: 100%;
+      text-transform: uppercase;
+    }
+
+    .day-name {
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+
+    .hours {
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+
+    .month {
+      font-size: 12px;
+      line-height: 200%;
+      text-transform: uppercase;
+    }
+
+    .artist-name {
+      font-size: 40px;
+      text-transform: uppercase;
+    }
+
+    .description {
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .cancelled {
+      font-size: 14px;
+      color: rgb(255, 0, 0);!important
+      text-transform: uppercase;
+    }
+
+    .type {
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="meta-frame">
+    <h1>PARC ROYAL</h1>
+    <h2>WEEKLY AGENDA</h2>
+    <div id="csv-tables"></div>
+  </div>
+
+  <script>
+    // Function to create a cell and append it to a row
+    function createCell(row, text, className, rowspan=1, colspan=1) {
+      var cell = row.insertCell();
+      cell.innerText = text;
+      cell.className = className;
+      cell.rowSpan = rowspan;
+      cell.colSpan = colspan;
+      return cell;
+    }
+
+    // Function to fetch and display CSV data
+    function fetchCSV() {
+      fetch('/test.csv')  // Update the filename if necessary
+        .then(response => response.text())
+        .then(data => {
+          var rows = data.split('\n');
+          var csvTables = document.getElementById('csv-tables');
+
+          for (var i = 1; i < rows.length; i++) { // Start from the second row
+            var cells = rows[i].split(';');
+
+            var dayNumber = cells[0];
+            var dayName = cells[1];
+            var month = cells[2];
+            var hours = cells[3];
+            var artistName = cells[4];
+            var description = cells[5];
+            var eventType = cells[6];
+            var emptyCell1 = " "
+            var cancelled = "ON"
+
+            // Create a new table and rows
+            var table = document.createElement('table');
+            table.className = 'csv-table';
+            var row1 = table.insertRow();
+            var row2 = table.insertRow();
+            var row3 = table.insertRow();
+            var row4 = table.insertRow();
+
+            // Set height for each row
+            row1.style.height = '19px';
+            row2.style.height = '18px';
+            row3.style.height = '21px';
+            row4.style.height = '1px';
+
+            // Create cells for row 1
+            createCell(row1, dayNumber, 'day-number', 1);
+            createCell(row1, month, 'month');
+            createCell(row1, artistName, 'artist-name',1);
+            createCell(row1, eventType, 'type', 1);
+            
+
+            // Create cells for row 2
+            createCell(row2, dayName, 'day-name',1,2);
+            createCell(row2, emptyCell1, 'cancelled');
+            createCell(row2, emptyCell1, 'hours');
+            
+            
+
+           
+            createCell(row3, hours, 'hours',1,2);
+            createCell(row3, description, 'description', 2, 2);
+            //createCell(row3, emptyCell1, 'hours');
+           
+            createCell(row4, emptyCell1, 'hours');
+            createCell(row4, emptyCell1, 'hours');
+            //createCell(row4, emptyCell1, 'hours');
+      
+            // Here the description cell will span 2 columns
+
+            // Append the table to the csvTables div
+            csvTables.appendChild(table);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching CSV data:', error);
+        });
+    }
+
+    // Call the function to fetch and display CSV data
+    fetchCSV();
+  </script>
+</body>
+</html>
